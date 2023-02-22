@@ -1,6 +1,6 @@
-from django.db import models
-from django.core.validators import MinValueValidator
 from django.conf import settings
+from django.core.validators import MinValueValidator
+from django.db import models
 
 
 class Ingredient(models.Model):
@@ -51,11 +51,11 @@ class Recipe(models.Model):
             message='Cooking time should be more than 0',
         )]
     )
-    tag = models.ManyToManyField(
+    tags = models.ManyToManyField(
         Tag,
         related_name='recipes',
     )
-    ingredient = models.ManyToManyField(
+    ingredients = models.ManyToManyField(
         Ingredient,
         through='IngredientAmount',
         verbose_name='Composition of the dish',

@@ -44,4 +44,3 @@ class Follow(models.Model):
                 check=~models.Q(user=models.F('author')),
                 name='do not selffollow'),
         ]
-
