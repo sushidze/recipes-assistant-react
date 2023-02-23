@@ -95,15 +95,15 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate(self, data):
-        ingredients = data['ingredients']
-        ingredients_list = []
-        for ingredient in ingredients:
+        ingredients_data = data['ingredients']
+        ingredients = []
+        for ingredient in ingredients_data:
             ingredient_id = ingredient['id']
-            if ingredient_id in ingredients_list:
+            if ingredient_id in ingredients:
                 raise serializers.ValidationError({
                     'ingredients': 'Ингредиенты должны быть уникальными!'
                 })
-            ingredients_list.append(ingredient_id)
+            ingredients.append(ingredient_id)
             amount = ingredient['amount']
             if int(amount) <= 0:
                 raise serializers.ValidationError({
