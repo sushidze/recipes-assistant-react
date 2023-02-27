@@ -43,7 +43,7 @@ jobs:
         with:
           file: ./backend/Dockerfile
           push: true
-          tags: rocke215/infra_backend
+          tags: sushidze/foodgram-backend:v27.02.2023_2
 
   deploy:
       runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
             key: ${{ secrets.SSH_KEY }}
             stack_file_name: docker-compose.yaml
             script: |
-              sudo docker pull rocke215/infra_backend
+              sudo docker pull sushidze/foodgram-backend:v27.02.2023_2
               sudo docker-compose stop
               sudo docker-compose rm backend
               sudo docker-compose up -d --build
