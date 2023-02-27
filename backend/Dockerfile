@@ -4,9 +4,8 @@ WORKDIR /app
 
 COPY ../ /app
 
-RUN cd backend
 RUN python -m pip install --upgrade pip
-RUN pip install -r /app/requirements.txt --no-cache-dir
+RUN pip install -r /app/backend/requirements.txt --no-cache-dir
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
