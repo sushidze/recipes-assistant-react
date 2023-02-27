@@ -171,5 +171,4 @@ def download_shopping_cart(request):
         wishlist.append(
             f"{name} - {data['amount']} {data['measurement_unit']}"
         )
-    response = HttpResponse(wishlist, content_type="text/plain")
-    return response
+    return HttpResponse(wishlist, content_type="text/plain")
