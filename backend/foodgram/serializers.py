@@ -1,7 +1,7 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
-
 from users.serializers import CustomUserSerializer
+
 from . import models
 
 
@@ -113,7 +113,9 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
 
     def validate_cooking_time(self, data):
         if data <= 0:
-            raise serializers.ValidationError("Please enter a number greater than 0")
+            raise serializers.ValidationError(
+                "Please enter a number greater than 0"
+            )
         return data
 
     def create(self, validated_data):
