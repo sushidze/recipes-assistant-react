@@ -98,5 +98,4 @@ class ShowFollowerSerializer(serializers.ModelSerializer):
         ).exists()
 
     def get_recipes_count(self, obj):
-        count = obj.recipes.all().count()
-        return count
+        return obj.recipes.all().count()
