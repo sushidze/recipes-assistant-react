@@ -52,10 +52,7 @@ class CustomUserViewSet(viewsets.ModelViewSet):
             user.set_password(serializer.validated_data["new_password"])
             user.save()
             return Response({"status": "password set"})
-        else:
-            return Response(
-                serializer.errors, status=status.HTTP_400_BAD_REQUEST
-            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(
         methods=["get", "delete", "post"],
@@ -80,9 +77,8 @@ class CustomUserViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        elif request.method == "DELETE":
-            follow.delete()
-            return Response("Deleted", status=status.HTTP_204_NO_CONTENT)
+        follow.delete()
+        return Response("Deleted", status=status.HTTP_204_NO_CONTENT)
 
     @action(
         methods=["get", "post"],
