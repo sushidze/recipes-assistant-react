@@ -1,22 +1,15 @@
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
-from rest_framework.permissions import (
-    IsAuthenticated,
-    AllowAny,
-)
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from .serializers import (
-    CustomUserSerializer,
-    PasswordSerializer,
-    ShowFollowerSerializer,
-    FollowerSerializer,
-)
 from .models import Follow
+from .serializers import (CustomUserSerializer, FollowerSerializer,
+                          PasswordSerializer, ShowFollowerSerializer)
 
 User = get_user_model()
 
@@ -80,7 +73,8 @@ class CustomUserViewSet(viewsets.ModelViewSet):
         if request.method == "GET" or request.method == "POST":
             if follow.exists():
                 return Response(
-                    "You are already subscribed", status=status.HTTP_400_BAD_REQUEST
+                    "You are already subscribed",
+                    status=status.HTTP_400_BAD_REQUEST
                 )
             serializer = FollowerSerializer(data=data, context=request)
             serializer.is_valid(raise_exception=True)

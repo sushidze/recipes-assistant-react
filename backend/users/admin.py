@@ -3,7 +3,6 @@ from django.contrib.admin import register
 
 from . import models
 
-
 admin.site.register(models.Follow)
 
 
