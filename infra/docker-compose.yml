@@ -23,7 +23,9 @@ services:
       - ./.env
 
   frontend:
-    image: sushidze/foodgram-frontend:v27.02.2023
+    container_name: frontend
+    build:
+      context: ../frontend
     volumes:
       - ../frontend/:/app/result_build/
 
@@ -34,7 +36,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static_value:/var/html/static/
