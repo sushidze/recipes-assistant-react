@@ -23,9 +23,7 @@ services:
       - ./.env
 
   frontend:
-    container_name: frontend
-    build:
-      context: ../frontend
+    image: sushidze/foodgram-frontend:v27.02.2023_2
     volumes:
       - ../frontend/:/app/result_build/
 
