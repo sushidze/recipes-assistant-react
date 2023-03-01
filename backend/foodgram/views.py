@@ -8,21 +8,23 @@ from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from . import models, serializers
+from .models import Tag, Ingredient, Recipe, Favorite, ShoppingCart, IngredientInRecipe
+from .serializers import TagSerializer, IngredientSerializer, CreateRecipeSerializer, ShowRecipeSerializer, \
+    FavoriteSerializer, ShoppingCartSerializer
 from .filters import IngredientFilter, RecipeFilter
 
 
 class TagView(viewsets.ModelViewSet):
-    queryset = models.Tag.objects.all()
-    serializer_class = serializers.TagSerializer
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
     permissions = [AllowAny, ]
     pagination_class = None
 
 
 class IngredientsView(viewsets.ModelViewSet):
-    queryset = models.Ingredient.objects.all()
+    queryset = Ingredient.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly, ]
-    serializer_class = serializers.IngredientSerializer
+    serializer_class = IngredientSerializer
     filter_backends = [DjangoFilterBackend, ]
     filter_class = IngredientFilter
     search_fields = ["name", ]
@@ -30,7 +32,7 @@ class IngredientsView(viewsets.ModelViewSet):
 
 
 class RecipeView(viewsets.ModelViewSet):
-    queryset = models.Recipe.objects.all()
+    queryset = Recipe.objects.all()
     permissions = [IsAuthenticatedOrReadOnly, ]
     filter_backends = [DjangoFilterBackend, ]
     filter_class = RecipeFilter
@@ -39,8 +41,8 @@ class RecipeView(viewsets.ModelViewSet):
     def get_serializer_class(self):
         method = self.request.method
         if method == "POST" or method == "PATCH":
-            return serializers.CreateRecipeSerializer
-        return serializers.ShowRecipeSerializer
+            return CreateRecipeSerializer
+        return ShowRecipeSerializer
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -63,14 +65,14 @@ class FavoriteView(APIView):
             "user": user.id,
             "recipe": recipe_id,
         }
-        if models.Favorite.objects.filter(
+        if Favorite.objects.filter(
             user=user, recipe__id=recipe_id
         ).exists():
             return Response(
                 {"Error": "Already in favorites"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        serializer = serializers.FavoriteSerializer(
+        serializer = FavoriteSerializer(
             data=data, context={"request": request}
         )
         serializer.is_valid(raise_exception=True)
@@ -85,12 +87,12 @@ class FavoriteView(APIView):
     )
     def delete(self, request, recipe_id):
         user = request.user
-        recipe = get_object_or_404(models.Recipe, id=recipe_id)
-        if not models.Favorite.objects.filter(
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+        if not Favorite.objects.filter(
             user=user, recipe=recipe
         ).exists():
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        models.Favorite.objects.get(user=user, recipe=recipe).delete()
+        Favorite.objects.get(user=user, recipe=recipe).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -111,14 +113,14 @@ class ShoppingCartViewSet(APIView):
             "user": user.id,
             "recipe": recipe_id,
         }
-        if models.ShoppingCart.objects.filter(
+        if ShoppingCart.objects.filter(
                 user=user, recipe__id=recipe_id
         ).exists():
             return Response(
                 {"Error": "Already in cart"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        serializer = serializers.ShoppingCartSerializer(
+        serializer = ShoppingCartSerializer(
             data=data, context={"request": request}
         )
         serializer.is_valid(raise_exception=True)
@@ -133,12 +135,12 @@ class ShoppingCartViewSet(APIView):
     )
     def delete(self, request, recipe_id):
         user = request.user
-        recipe = get_object_or_404(models.Recipe, id=recipe_id)
-        if not models.ShoppingCart.objects.filter(
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+        if not ShoppingCart.objects.filter(
             user=user, recipe=recipe
         ).exists():
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        models.ShoppingCart.objects.get(user=user, recipe=recipe).delete()
+        ShoppingCart.objects.get(user=user, recipe=recipe).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -152,7 +154,7 @@ def download_shopping_cart(request):
     buying_list = {}
     for record in shopping_cart:
         recipe = record.recipe
-        ingredients = models.IngredientInRecipe.objects.filter(recipe=recipe)
+        ingredients = IngredientInRecipe.objects.filter(recipe=recipe)
         for ingredient in ingredients:
             amount = ingredient.amount
             name = ingredient.ingredient.name
