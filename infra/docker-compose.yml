@@ -10,7 +10,7 @@ services:
       - ./.env
 
   backend:
-    image: sushidze/foodgram-backend:v27.02.2023_2
+    image: sushidze/foodgram-backend:v27.02.2023_4
     restart: always
     expose:
       - 8000
