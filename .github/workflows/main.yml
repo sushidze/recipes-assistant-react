@@ -46,6 +46,7 @@ jobs:
           tags: sushidze/foodgram-backend:v27.02.2023_2
 
   deploy:
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
       runs-on: ubuntu-latest
       needs: build_and_push_to_docker_hub
       steps:
