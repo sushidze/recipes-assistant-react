@@ -2,9 +2,9 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueTogetherValidator
-from . import models
-
 from foodgram.models import Recipe
+
+from .models import Follow
 
 User = get_user_model()
 
@@ -45,10 +45,10 @@ class TokenSerializer(serializers.ModelSerializer):
 
 class FollowerSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
-        queryset=models.User.objects.all()
+        queryset=User.objects.all()
     )
     following = serializers.PrimaryKeyRelatedField(
-        queryset=models.User.objects.all()
+        queryset=User.objects.all()
     )
 
     def validate(self, data):
@@ -62,10 +62,10 @@ class FollowerSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = ("user", "following")
-        model = models.Follow
+        model = Follow
         validators = [
             UniqueTogetherValidator(
-                queryset=models.Follow.objects.all(),
+                queryset=Follow.objects.all(),
                 fields=["user", "following"],
             )
         ]
@@ -93,7 +93,7 @@ class ShowFollowerSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         if request is None or request.user.is_anonymous:
             return False
-        return models.Follow.objects.filter(
+        return Follow.objects.filter(
             user=request.user, following=obj
         ).exists()
 
