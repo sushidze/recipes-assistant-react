@@ -1,6 +1,6 @@
 # Foodgram - Grocery assistant
 
-[![foodgram workflow](https://github.com/sushidze/foodgram-project-react/actions/workflows/main.yml/badge.svg)](https://github.com/sushidze/foodgram-project-react/actions/workflows/main.yml) 
+[![Grocery assistant workflow](https://github.com/sushidze/recipes-assistant-react/actions/workflows/main.yml/badge.svg)](https://github.com/sushidze/recipes-assistant-react/actions/workflows/main.yml) 
 
 ## Technology stack
 
@@ -16,7 +16,7 @@
 
 ## Description of the project
 
-Foodgram is a resource for publishing recipes.
+Grocery assistant is a resource for publishing recipes.
 Users can create their own recipes, read other users' recipes, subscribe to interesting authors, add the best recipes to favorites, and create a shopping list and download it in pdf format
 
 ## Installing the project locally
@@ -40,7 +40,7 @@ source env/bin/activate
 * Create a `.env` file in the `/infra/` directory with the content:
 
 ```
-SECRET_KEY=секретный ключ django
+SECRET_KEY=secret key django
 DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres
 POSTGRES_USER=postgres
@@ -100,8 +100,8 @@ docker-compose exec backend python manage.py collectstatic --noinput
 
 ## Website
 The site is available at the following link:
-[http://62.84.126.231/](http://62.84.126.231/)
+[http://158.160.51.237/](http://158.160.51.237/)
 
 ## API Documentation
 API documentation is available here (created with redoc):
-[http://http:62.84.126.231/api/docs/](http://62.84.126.231/api/docs/)
+[http://158.160.51.237/api/docs/](http://158.160.51.237/api/docs/)
