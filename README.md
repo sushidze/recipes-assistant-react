@@ -1,6 +1,6 @@
 # Foodgram - Grocery assistant
 
-![example workflow](https://github.com/NIK-TIGER-BILL/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)  
+[![foodgram workflow](https://github.com/sushidze/foodgram-project-react/actions/workflows/main.yml/badge.svg)](https://github.com/sushidze/foodgram-project-react/actions/workflows/main.yml) 
 
 ## Technology stack
 
