@@ -8,10 +8,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Tag, Ingredient, Recipe, Favorite, ShoppingCart, IngredientInRecipe
-from .serializers import TagSerializer, IngredientSerializer, CreateRecipeSerializer, ShowRecipeSerializer, \
-    FavoriteSerializer, ShoppingCartSerializer
 from .filters import IngredientFilter, RecipeFilter
+from .models import (Favorite, Ingredient, IngredientInRecipe, Recipe,
+                     ShoppingCart, Tag)
+from .serializers import (CreateRecipeSerializer, FavoriteSerializer,
+                          IngredientSerializer, ShoppingCartSerializer,
+                          ShowRecipeSerializer, TagSerializer)
 
 
 class TagView(viewsets.ModelViewSet):
