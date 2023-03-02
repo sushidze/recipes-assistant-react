@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
-from foodgram.models import Recipe
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueTogetherValidator
+
+from foodgram.models import Recipe
 
 from . import models
 
