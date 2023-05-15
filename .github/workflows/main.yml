@@ -43,7 +43,7 @@ jobs:
         with:
           file: ./backend/Dockerfile
           push: true
-          tags: sushidze/foodgram-backend:v27.02.2023_2
+          tags: sushidze/foodgram-backend:v27.02.2023_4
 
   deploy:
       runs-on: ubuntu-latest
