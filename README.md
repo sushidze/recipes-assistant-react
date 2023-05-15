@@ -40,7 +40,7 @@ source env/bin/activate
 * Create a `.env` file in the `/infra/` directory with the content:
 
 ```
-SECRET_KEY=секретный ключ django
+SECRET_KEY=secret key django
 DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres
 POSTGRES_USER=postgres
@@ -100,8 +100,8 @@ docker-compose exec backend python manage.py collectstatic --noinput
 
 ## Website
 The site is available at the following link:
-[http://62.84.126.231/](http://62.84.126.231/)
+[http://158.160.51.237/](http://158.160.51.237/)
 
 ## API Documentation
 API documentation is available here (created with redoc):
-[http://http:62.84.126.231/api/docs/](http://62.84.126.231/api/docs/)
+[http://158.160.51.237/api/docs/](http://158.160.51.237/api/docs/)
