@@ -16,7 +16,7 @@
 
 ## Description of the project
 
-Foodgram is a resource for publishing recipes.
+Grocery assistant is a resource for publishing recipes.
 Users can create their own recipes, read other users' recipes, subscribe to interesting authors, add the best recipes to favorites, and create a shopping list and download it in pdf format
 
 ## Installing the project locally
